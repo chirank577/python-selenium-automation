@@ -16,15 +16,14 @@ driver.maximize_window()
 driver.get('https://www.target.com/')
 #search field=> enter water
 
-driver.find_element(By.XPATH,"//input[@data-test='@web/Search/SearchInput']").send_keys('energy drink')
-#search button=> click
-driver.find_element(By.XPATH,"//button[@data-test='@web/Search/SearchButton']").click()
+driver.find_element(By.XPATH,"//a[@data-test='@web/AccountLink']").click()
+sleep(2)
+driver.find_element(By.XPATH,"//a[@data-test='accountNav-signIn']").click()
+sleep(2)
+
+actual_result=driver.find_element(By.XPATH,"//h1[@class='sc-fe064f5c-0 sc-315b8ab9-2 WObnm gClYfs']").text
 sleep(6)
+assert driver.find_element(By.ID,'login'), f'sign in element is not found'
+sleep(2)
 
-#verification
-actual_result= driver.find_element(By.XPATH, "//div[@data-test='resultsHeading']").text
-expected_result='energy drink'
-assert expected_result in actual_result, f' Expected {expected_result} actual result {actual_result}'
-print('Test case Passed')
-
-driver.quit()
+quit()
