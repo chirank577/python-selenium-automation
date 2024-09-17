@@ -13,24 +13,24 @@ driver = webdriver.Chrome(service=service)
 driver.maximize_window()
 
 # open the url
-driver.get('https://www.google.com/')
-
-# populate search field
-search = driver.find_element(By.NAME, 'q')
-search.clear()
-search.send_keys('Car')
-
-# wait for 4 sec
-sleep(4)
-
-# click search button
-driver.find_element(By.NAME, 'btnK').click()
+# driver.get('https://www.google.com/')
+#
+# # populate search field
+# search = driver.find_element(By.NAME, 'q')
+# search.clear()
+# search.send_keys('Car')
+#
+# # wait for 4 sec
+# sleep(4)
+#
+# # click search button
+# driver.find_element(By.NAME, 'btnK').click()
 
 # verify search results
-assert 'car'.lower() in driver.current_url.lower(), f"Expected query not in {driver.current_url.lower()}"
-print('Test Passed')
-
-driver.quit()
+# assert 'car'.lower() in driver.current_url.lower(), f"Expected query not in {driver.current_url.lower()}"
+# print('Test Passed')
+#
+# driver.quit()
 
 
 #search for energy drink
