@@ -1,10 +1,11 @@
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as EC
 from behave import given, when, then
 from time import sleep
 
 
 ADD_CART_BTN= (By.CSS_SELECTOR, "[id*='addToCartButtonOrTextId']")
-
+VIEW_CART= (By.XPATH, "//button[@data-test='orderPickupButton']")
 
 @then ('Your cart is empty message is shown')
 def empty_msg(context):
@@ -17,12 +18,12 @@ def empty_msg(context):
 @when ('click add to cart button')
 def add_cart(context):
     context.driver.find_element(*ADD_CART_BTN).click()
-    sleep(2)
+    sleep(5)
 
 @when ('click on view cart & check out')
 def click_view_cart(context):
-    context.driver.find_element(By.XPATH, "//button[@data-test='orderPickupButton']").click()
-    sleep(5)
+    context.driver.wait.until(EC.element_to_be_clickable(VIEW_CART)).click()
+
     context.driver.find_element(By.CSS_SELECTOR, "a.sc-ddc722c0-0.sc-3d5333d1-0.jKTcnK.hhYRAp").click()
     sleep(5)
 

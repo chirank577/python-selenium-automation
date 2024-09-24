@@ -6,3 +6,4 @@ Feature: target main page sign in
     When click on sign in logo
     And click Sign In
     Then Verify Sign In form opened
+
