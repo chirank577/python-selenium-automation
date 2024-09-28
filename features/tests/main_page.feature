@@ -14,5 +14,5 @@ Scenario: verify user can see target circle page has 10 benefit cells
 
 Scenario: Verify user can see all the product name and image
   Given open target main page
-  When search for tshirt for woman
+  When search for a tshirt for woman
   Then Verify that every product on Target has a product name and product image

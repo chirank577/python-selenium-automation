@@ -11,7 +11,7 @@ Feature: cart tests features
 
   Scenario: verify user can add product into the cart
     Given open target main page
-    When search for a tea
+    When search for a coffee
     And click add to cart button
     And click on view cart & check out
     Then verify cart has 1 items or total price
