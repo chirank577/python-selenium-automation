@@ -37,6 +37,86 @@ sleep(2)
 driver.find_element(By.CSS_SELECTOR, ".a-link-emphasis")
 sleep(2)
 #
+# lana's lesson 2 code'
+# from selenium import webdriver
+# from selenium.webdriver.common.by import By
+# from selenium.webdriver.chrome.service import Service
+# from webdriver_manager.chrome import ChromeDriverManager
+# from time import sleep
+#
+# # get the path to the ChromeDriver executable
+# driver_path = ChromeDriverManager().install()
+#
+# # create a new Chrome browser instance
+# service = Service(driver_path)
+# driver = webdriver.Chrome(service=service)
+# driver.maximize_window()
+#
+# # open the url
+# driver.get('https://www.amazon.com/')
+#
+# # Locate element:
+# # driver.find_element() # By. / value
+# # Locate by ID:
+# driver.find_element(By.ID, 'twotabsearchtextbox')
+# driver.find_element(By.ID, 'nav-logo-sprites')
+#
+# # By Xpath, using 1 attribute
+# driver.find_element(By.XPATH, "//img[@alt='Shop Studio Pro headphones']")
+# driver.find_element(By.XPATH, "//input[@name='field-keywords']")
+# driver.find_element(By.XPATH, "//input[@placeholder='Search Amazon']")
+# # By Xpath, multiple attributes
+# driver.find_element(By.XPATH, "//a[@class='nav-a  ' and @href='/gp/bestsellers/?ref_=nav_cs_bestsellers' and @tabindex='0']")
+#
+# # By Xpath, text:
+# driver.find_element(By.XPATH, "//a[text()='Best Sellers']")
+# driver.find_element(By.XPATH, '//a[text()="Best Sellers"]')
+# # By Xpath, text and attributes:
+# driver.find_element(By.XPATH, "//a[text()='Best Sellers' and @class='nav-a  ']")
+#
+# # By attributes or text only, any tag
+# driver.find_element(By.XPATH, "//*[@name='field-keywords']")
+# driver.find_element(By.XPATH, "//*[text()='Best Sellers' and @class='nav-a  ']")
+#
+# # By attributes, parent node => child
+# driver.find_element(By.XPATH, "//div[@id='nav-main']//a[text()='Best Sellers']")
+#  30 changes: 30 additions & 0 deletions30
+# target_search.py
+# Original file line number	Diff line number	Diff line change
+# @@ -0,0 +1,30 @@
+# from selenium import webdriver
+# from selenium.webdriver.common.by import By
+# from selenium.webdriver.chrome.service import Service
+# from webdriver_manager.chrome import ChromeDriverManager
+# from time import sleep
+#
+# # get the path to the ChromeDriver executable
+# driver_path = ChromeDriverManager().install()
+# # create a new Chrome browser instance
+# service = Service(driver_path)
+# driver = webdriver.Chrome(service=service)
+# driver.maximize_window()
+#
+# driver.get('https://www.target.com/')
+#
+# # Search field => enter tea
+# driver.find_element(By.ID, 'search').send_keys('tea')
+#
+# # Search button => click
+# driver.find_element(By.XPATH, "//button[@data-test='@web/Search/SearchButton']").click()
+# sleep(6)  # wait for search results page to load
+#
+# # Verification
+# actual_result = driver.find_element(By.XPATH, "//div[@data-test='resultsHeading']").text
+# expected_result = 'tea'
+#
+# assert expected_result in actual_result, f'Expected {expected_result}, got actual {actual_result}'
+# print('Test case passed')
+#
+# driver.quit()
+
+
+#
 # #lana code lesson 3
 # from selenium import webdriver
 # from selenium.webdriver.common.by import By
@@ -440,3 +520,189 @@ sleep(2)
 #
 # # verify search results
 # assert 'car'.lower() in driver.current_url.lower(), f"Expected query not in {driver.current_url.lower()}"
+
+#LESSON 6 CODE
+# from pages.base_page import Page
+# from pages.header import Header
+# from pages.main_page import MainPage
+# from pages.search_results_page import SearchResultsPage
+#
+#
+# class Application:
+#
+#     def __init__(self, driver):
+#         self.page = Page(driver)
+#         self.main_page = MainPage(driver)
+#         self.header = Header(driver)
+#         self.search_results_page = SearchResultsPage(driver)
+#   3 changes: 3 additions & 0 deletions3
+# features/environment.py
+# Original file line number	Diff line number	Diff line change
+# @@ -3,6 +3,8 @@
+# from selenium.webdriver.support.wait import WebDriverWait
+# from webdriver_manager.chrome import ChromeDriverManager
+#
+# from app.application import Application
+#
+#
+# def browser_init(context):
+#     """
+# @@ -15,6 +17,7 @@ def browser_init(context):
+#     context.driver.maximize_window()
+#     context.driver.implicitly_wait(4)
+#     context.driver.wait = WebDriverWait(context.driver, timeout=10)
+#     context.app = Application(context.driver)
+#
+#
+# def before_scenario(context, scenario):
+#   10 changes: 2 additions & 8 deletions10
+# features/steps/main_page_steps.py
+# Original file line number	Diff line number	Diff line change
+# @@ -1,11 +1,10 @@
+# from selenium.webdriver.common.by import By
+# from behave import given, when, then
+# from time import sleep
+#
+#
+# @given('Open target main page')
+# def open_main(context):
+#     context.driver.get('https://www.target.com/')
+#     context.app.main_page.open_main()
+#
+#
+# @when('Click on cart icon')
+# @@ -15,12 +14,7 @@ def click_cart(context):
+#
+# @when('Search for {item}')
+# def search_product(context, item):
+#     # print(item)
+#     # Search field => enter tea
+#     context.driver.find_element(By.ID, 'search').send_keys(item)
+#     # Search button => click
+#     context.driver.find_element(By.XPATH, "//button[@data-test='@web/Search/SearchButton']").click()
+#     sleep(8)  # wait for search results page to load
+#     context.app.header.search_product(item)
+#
+#
+# @then('Verify header has {expected_amount} links')
+#   23 changes: 20 additions & 3 deletions23
+# features/steps/search_results_steps.py
+# Original file line number	Diff line number	Diff line change
+# @@ -7,7 +7,9 @@
+# ADD_TO_CART_BTN = (By.CSS_SELECTOR, "[id*='addToCartButton']")
+# ADD_TO_CART_BTN_SIDE_NAV = (By.CSS_SELECTOR, "[data-test='content-wrapper'] [id*='addToCart']")
+# SIDE_NAV_PRODUCT_NAME = (By.CSS_SELECTOR, "[data-test='content-wrapper'] h4")
+#
+# LISTINGS = (By.CSS_SELECTOR, "[data-test='@web/site-top-of-funnel/ProductCardWrapper']")
+# PRODUCT_TITLE = (By.CSS_SELECTOR, "[data-test='product-title']")
+# PRODUCT_IMG = (By.CSS_SELECTOR, 'img')
+#
+#
+# @when('Click on Add to Cart button')
+# @@ -33,5 +35,20 @@ def side_nav_click_add_to_cart(context):
+#
+# @then('Verify that correct search results shown for {product}')
+# def verify_results(context, product):
+#     actual_result = context.driver.find_element(By.XPATH, "//div[@data-test='resultsHeading']").text
+#     assert product in actual_result, f'Expected {product}, got actual {actual_result}'
+#     context.app.search_results_page.verify_results(product)
+#
+#
+# @then('Verify that every product has a name and an image')
+# def verify_products_name_img(context):
+#     # To see ALL listings (comment out if you only check top ones):
+#     context.driver.execute_script("window.scrollBy(0,2000)", "")
+#     sleep(4)
+#     context.driver.execute_script("window.scrollBy(0,2000)", "")
+#
+#     all_products = context.driver.find_elements(*LISTINGS)  # [WebEl1, WebEl2, WebEl3, WebEl4]
+#
+#     for product in all_products:
+#         title = product.find_element(*PRODUCT_TITLE).text
+#         assert title, 'Product title not shown'
+#         print(title)
+#         product.find_element(*PRODUCT_IMG)
+#   7 changes: 6 additions & 1 deletion7
+# features/tests/target_search.feature
+# Original file line number	Diff line number	Diff line change
+# @@ -30,4 +30,9 @@ Feature: Tests for Target Search functionality
+#     And Confirm Add to Cart button from side navigation
+#     And Open cart page
+#     Then Verify cart has 1 item(s)
+#     And Verify cart has correct product
+#     And Verify cart has correct product
+#
+#   Scenario: Verify that user can see product names and images
+#     Given Open target main page
+#     When Search for AirPods (3rd Generation)
+#     Then Verify that every product has a name and an image
+#  Empty file added0
+# pages/__init__.py
+# Empty file.
+#  19 changes: 19 additions & 0 deletions19
+# pages/base_page.py
+# Original file line number	Diff line number	Diff line change
+# @@ -0,0 +1,19 @@
+# class Page:
+#
+#     def __init__(self, driver):
+#         self.driver = driver
+#
+#     def open(self, url):
+#         self.driver.get(url)
+#
+#     def find_element(self, *locator):
+#         return self.driver.find_element(*locator)
+#
+#     def find_elements(self, *locator):
+#         return self.driver.find_elements(*locator)
+#
+#     def click(self, *locator):
+#         self.driver.find_element(*locator).click()
+#
+#     def input_text(self, text, *locator):
+#         self.driver.find_element(*locator).send_keys(text)
+#  13 changes: 13 additions & 0 deletions13
+# pages/header.py
+# Original file line number	Diff line number	Diff line change
+# @@ -0,0 +1,13 @@
+# from selenium.webdriver.common.by import By
+# from time import sleep
+#
+# from pages.base_page import Page
+#
+# class Header(Page):
+#     SEARCH_FIELD = (By.ID, 'search')
+#     SEARCH_BTN = (By.XPATH, "//button[@data-test='@web/Search/SearchButton']")
+#
+#     def search_product(self, item):
+#         self.input_text(item, *self.SEARCH_FIELD)
+#         self.click(*self.SEARCH_BTN)
+#         sleep(6) # wait for search results page to load
+#  7 changes: 7 additions & 0 deletions7
+# pages/main_page.py
+# Original file line number	Diff line number	Diff line change
+# @@ -0,0 +1,7 @@
+# from pages.base_page import Page
+#
+#
+# class MainPage(Page):
+#
+#     def open_main(self):
+#         self.open('https://www.target.com/')
+#  10 changes: 10 additions & 0 deletions10
+# pages/search_results_page.py
+# Original file line number	Diff line number	Diff line change
+# @@ -0,0 +1,10 @@
+# from selenium.webdriver.common.by import By
+#
+# from pages.base_page import Page
+#
+# class SearchResultsPage(Page):
+#     SEARCH_RESULTS_HEADER = (By.XPATH, "//div[@data-test='resultsHeading']")
+#
+#     def verify_results(self, product):
+#         actual_result = self.driver.find_element(*self.SEARCH_RESULTS_HEADER).text
+#         assert product in actual_result, f'Expected {product}, got actual {actual_result}'
+
+LESSON 7 Lana's code

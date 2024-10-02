@@ -16,7 +16,7 @@ def click_cart(context):
     context.app.header.click_cart_btn()
 
 
-@when('click on sign in logo and sign in on account page')
+@when('click on sign in logo and click sign in on account page')
 def sign_in_logo(context):
     context.app.header.click_sign_in_on_main_page()
 

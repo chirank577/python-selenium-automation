@@ -18,7 +18,7 @@ wait = WebDriverWait(driver, timeout=10)
 
 # open the url
 driver.get('https://www.amazon.com/gp/bestsellers/?ref_=nav_cs_bestsellers')
-sleep(2)
+sleep(10)
 
 links = driver.find_elements(By.CSS_SELECTOR, '#zg_header a')
 print(links)
