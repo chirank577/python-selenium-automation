@@ -8,7 +8,7 @@ class TargetAppPage(Page):
     condition_link= (By.XPATH, "//h3[contains(text(),'Your Use of This Website')]")
 
     def store_current_window(self):
-        return self.get_current_window()
+         return self.get_current_window()
 
     def click_terms_condition(self):
         self.click(*self.Click_terms_condition)

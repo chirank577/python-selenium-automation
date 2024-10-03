@@ -20,3 +20,14 @@ class SignInPage(Page):
     def Click_on_signin_with_pswd_btn(self):
         self.click(*self.SING_IN_WITH_PSWD_BTN)
 
+    VERIFY_USER_NAME_POST_LOGIN = (By.CSS_SELECTOR, ".sc-58ad44c0-3.kwbrXj.h-margin-r-x3")
+    CANNOT_FIND_ACCOUNT = (By.XPATH, "//div//div[contains(text(), 'We can')]")
+
+    def VERIFY_USER_CAN_SIGN_IN_WITH_VALID_ID(self):
+        self.verify_partial_text('Chiranjivi', *self.VERIFY_USER_NAME_POST_LOGIN)
+
+    def Verify_user_cannot_signin(self):
+        self.verify_text("We can't find your account.", *self.CANNOT_FIND_ACCOUNT)
+
+
+

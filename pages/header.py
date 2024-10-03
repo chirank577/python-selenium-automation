@@ -22,9 +22,3 @@ class Header(Page):
         self.click(*self.CLICK_SIGN_IN_MAIN_PAGE)
         self.click(*self.CLICK_SIGNIN)
 
-    VERIFY_USER_NAME_POST_LOGIN= (By.CSS_SELECTOR, ".sc-58ad44c0-3.kwbrXj.h-margin-r-x3")
-
-
-    def VERIFY_USER_CAN_SIGN_IN_WITH_VALID_ID(self):
-        self.verify_partial_text('Chiranjivi', *self.VERIFY_USER_NAME_POST_LOGIN)
-

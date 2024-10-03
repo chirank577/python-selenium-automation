@@ -7,7 +7,7 @@ from pages.base_page import Page
 from pages.main_page import MainPage
 from pages.header import Header
 from pages.search_result_page import SearchResultPage
-
+from pages.Target_select_testcase_page import TargetSelectTestCase
 
 
 class Application:
@@ -20,4 +20,5 @@ class Application:
         self.Cart_page= CartVerification(driver)
         self.Signin_page= SignInPage(driver)
         self.Target_app_page= TargetAppPage(driver)
+        self.Target_select= TargetSelectTestCase(driver)
 

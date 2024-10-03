@@ -14,3 +14,11 @@ Feature: target main page sign in
     And click on password **********  enter valid password
     And click on sign in with password
     Then Verify user can sign in using valid email address and password
+
+Scenario: verify that user is unable to sign in using invalid Id or invalid Password
+    Given open target main page
+    When click on sign in logo and click sign in on account page
+    And click on email chirank57@gmail.com and enter invalid email address
+    And click on password *********** enter invalid password
+    And click on sign in with password
+    Then Verify user can not sign in using invalid email address or password
