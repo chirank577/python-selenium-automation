@@ -1,4 +1,5 @@
 # Created by chiranjivisingh at 9/18/24
+@smoke
 Feature: Tests for product page with loops
 
   Scenario: User can search colors

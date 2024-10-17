@@ -5,6 +5,10 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from time import sleep
 from app.application import Application
+from support.logger import logger
+
+# Command to run tests with Allure & Behave:
+# behave -f allure_behave.formatter:AllureFormatter -o test_results/ features/tests/target_search.feature
 
 
 
@@ -22,17 +26,17 @@ def browser_init(context):
     context.app=Application(context.driver)
 
 def before_scenario(context, scenario):
-    print('\nStarted scenario: ', scenario.name)
+    logger.info(f'Started scenario:  {scenario.name}')
     browser_init(context)
 
 
 def before_step(context, step):
-    print('\nStarted step: ', step)
+    logger.info(f'Started step:  {step}')
 
 
 def after_step(context, step):
     if step.status == 'failed':
-        print('\nStep failed: ', step)
+        logger.info(f'Step failed:  {step}')
 
 
 def after_scenario(context, feature):

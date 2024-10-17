@@ -1,5 +1,6 @@
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait
+from support.logger import logger
 
 
 class Page:
@@ -9,18 +10,23 @@ class Page:
         self.wait = WebDriverWait(self.driver, timeout=10)
 
     def open (self, url):
+        logger.info(f'opening page {url}')
         self.driver.get(url)
 
     def find_element(self, *locator):
+        logger.info(f'searching for element {locator}')
         return self.driver.find_element(*locator)
 
     def find_elements(self, *locator):
+        logger.info(f'searching for elements {locator}')
         return self.driver.find_elements(*locator)
 
     def get_text(self, *locator):
+        logger.info(f'getting a text{locator}')
         return self.find_element(*locator).text
 
     def get_current_window(self):
+        logger.info(f'getting current window')
         return self.driver.current_window_handle
 
     def switch_to_window(self):
@@ -42,6 +48,7 @@ class Page:
         self.driver.find_element(*locator).click()
 
     def input_text(self, text, *locator):
+        logger.info(f'inputting text {text} {locator}')
         self.driver.find_element(*locator).send_keys(text)
 
     def verify_text(self, expected_text, *locator):
